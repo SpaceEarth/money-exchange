@@ -1,5 +1,22 @@
-// PLEASE DON'T change function name
+const COINS = [50, 25, 10, 5, 1];
+const COINS_CHAR = ['H', 'Q', 'D', 'N', 'P'];
+
 module.exports = function makeExchange(currency) {
-    // Your code goes here!
-    // Return an object containing the minimum number of coins needed to make change
+    if (currency > 10000) {
+        return {error: "You are rich, my friend! We don't have so much coins for exchange"};
+    }
+    
+    let i = 0;
+    let money = {};
+    let currentValue = currency;
+
+    while (currentValue > 0 && i < COINS.length) {
+        if (currentValue >= COINS[i]) {
+            money[COINS_CHAR[i]] = Math.trunc(currentValue / COINS[i]);
+            currentValue = currentValue % COINS[i];
+        }
+        i++;
+    }
+
+    return money;
 }
